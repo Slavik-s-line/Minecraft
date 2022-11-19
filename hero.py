@@ -38,6 +38,8 @@ class Hero():
         base.accept('j' + '-repeat', self.up)
         base.accept('k', self.down)
         base.accept('k' + '-repeat', self.down)
+        base.accept('z', self.land.saveMap)
+        base.accept('x', self.land.loadMap)
         base.accept('mouse1', self.build)
         base.accept('mouse3', self.destroy)
     def changeView(self):
