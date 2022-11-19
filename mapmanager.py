@@ -1,3 +1,4 @@
+import pickle
 class Mapmanager(): # класс карты
     def __init__(self): # конструктор
         self.model = 'block' # моделька
@@ -39,4 +40,21 @@ class Mapmanager(): # класс карты
                         block = self.addBlock((x, y, z0))
                     x += 1
                 y += 1
-        return x, y         
+        return x, y
+
+    def saveMap(self):
+       blocks = self.land.getChildren()
+       with open('my_map.dat', 'wb') as fout:
+           pickle.dump(len(blocks), fout)
+           for block in blocks:
+               x, y, z = block.getPos()
+               pos = (int(x), int(y), int(z))
+               pickle.dump(pos, fout)
+            
+    def loadMap(self):
+       self.clear()
+       with open('my_map.dat', 'rb') as fin:
+           length = pickle.load(fin)
+           for i in range(length):
+               pos = pickle.load(fin)
+               self.addBlock(pos)
